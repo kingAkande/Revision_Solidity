@@ -1,34 +1,41 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.24;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
 
-// Uncomment this line to use console.log
-// import "hardhat/console.sol";
+contract SetGet {
 
-contract Lock {
-    uint public unlockTime;
-    address payable public owner;
+    uint256 name;
+    bool status;
 
-    event Withdrawal(uint amount, uint when);
-
-    constructor(uint _unlockTime) payable {
-        require(
-            block.timestamp < _unlockTime,
-            "Unlock time should be in the future"
-        );
-
-        unlockTime = _unlockTime;
-        owner = payable(msg.sender);
+    function steName(uint a, bool b)public {
+        name = a;
+        status = b;
     }
 
-    function withdraw() public {
-        // Uncomment this line, and the import of "hardhat/console.sol", to print a log in your terminal
-        // console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
-
-        require(block.timestamp >= unlockTime, "You can't withdraw yet");
-        require(msg.sender == owner, "You aren't the owner");
-
-        emit Withdrawal(address(this).balance, block.timestamp);
-
-        owner.transfer(address(this).balance);
+    function getName() public view returns (uint , bool){
+        return(name , status);
     }
+
+    function tobpure() public pure returns(uint){
+        uint age;
+        age = 5;
+        return age;
+    }
+
+    // string name;
+
+    // function setName(string memory c)public {
+    //         name = c;
+    // }
+
+    // function getName() public view returns (string memory){
+    //         return name;
+    // }
+    
 }
+
+
+    // setting a function to change the state variables cost gass  
+    // if the value of the state variable is beign changed, neither "PURE" nor "VIEW" will be used
+    // when u read from the state variable the "VIEW" key word is used
+    // when you are neither reading nor writting to the state variable the "PURE" key word is used
+    // you use "PURE" for anything that has to do with local variable 
